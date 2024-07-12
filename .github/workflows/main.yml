@@ -15,4 +15,4 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v4
             - name: Check-Format
-              run: clang-format -i -style=file $(find . -name '*.cpp' -or -name '*.hpp')
+              run: ../../clang-format -i -style=file $(find . -name '*.cpp' -or -name '*.hpp')
