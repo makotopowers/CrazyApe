@@ -12,9 +12,5 @@ jobs:
     test:
         runs-on: macos-latest
         steps:
-            - name: Checkout
-              uses: actions/checkout@v4
-            - name: Install-Clang-Format
-              run: brew install clang-format
-            - name: Check-Format
-              run: ../../clang-format -i -style=file $(find . -name '*.cpp' -or -name '*.hpp')
+            - name: test
+              run: ./test1.sh
