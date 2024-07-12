@@ -1,0 +1,37 @@
+cmake_minimum_required(VERSION 3.27)
+
+project(algorithms)
+
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)   # for clang-tidy
+
+
+include(CTest)
+enable_testing()
+
+find_package (Eigen3 3.3 REQUIRED NO_MODULE)
+
+set(HEADERS
+    ${PROJECT_SOURCE_DIR}/include/ridgeRegression.hpp
+    ${PROJECT_SOURCE_DIR}/include/OLS.hpp
+    ${PROJECT_SOURCE_DIR}/include/lasso.hpp
+
+    )
+
+set(SOURCES
+    ${PROJECT_SOURCE_DIR}/src/ridgeRegression.cpp
+    ${PROJECT_SOURCE_DIR}/src/OLS.cpp
+    ${PROJECT_SOURCE_DIR}/src/lasso.cpp
+    )
+
+add_executable(${PROJECT_NAME}
+               ${SOURCES}
+               main.cpp)
+
+target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/include)
+target_link_libraries(${PROJECT_NAME} Eigen3::Eigen)
+# target_link_libraries(${PROJECT_NAME} 
+
+add_subdirectory(tests)
