@@ -49,7 +49,7 @@ class OLS {
  public:
   OLS();
   ~OLS();
-  void fit(const Eigen::MatrixXd &X, const Eigen::VectorXd &y);
+  void fit(const Eigen::MatrixXd& X, const Eigen::VectorXd& y);
   Eigen::VectorXd get_beta() const;
 
  private:

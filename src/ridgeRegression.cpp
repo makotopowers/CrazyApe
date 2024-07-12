@@ -10,8 +10,7 @@ RidgeRegression::~RidgeRegression() {
   std::cout << "RidgeRegression object destroyed" << std::endl;
 }
 
-void RidgeRegression::fit(const Eigen::MatrixXd &X, const Eigen::VectorXd &y,
-                          double lambda) {
+void RidgeRegression::fit(const Eigen::MatrixXd& X, const Eigen::VectorXd& y, double lambda) {
   this->X = X;
   this->y = y;
   this->lambda = lambda;
@@ -22,6 +21,8 @@ void RidgeRegression::fit(const Eigen::MatrixXd &X, const Eigen::VectorXd &y,
   beta = (XtX + lambda * I).ldlt().solve(X.transpose() * y);
 }
 
-Eigen::VectorXd RidgeRegression::get_beta() const { return beta; }
+Eigen::VectorXd RidgeRegression::get_beta() const {
+  return beta;
+}
 
 }  // namespace Modelling

@@ -24,7 +24,7 @@ TEST(OLSTest, DimensionTest) {
   ASSERT_EQ(beta.size(), 5);
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char** argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }

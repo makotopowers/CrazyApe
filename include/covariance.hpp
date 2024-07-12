@@ -33,7 +33,7 @@ class Covariance {
  public:
   Covariance();
   ~Covariance();
-  void fit(const Eigen::MatrixXd &X);
+  void fit(const Eigen::MatrixXd& X);
   Eigen::MatrixXd get_covariance() const;
 }
 
