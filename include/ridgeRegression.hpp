@@ -61,6 +61,8 @@ class RidgeRegression {
   RidgeRegression();
   ~RidgeRegression();
   void fit(const Eigen::MatrixXd &X, const Eigen::VectorXd &y, double lambda);
+  void fit(const Eigen::MatrixXd &X, const Eigen::VectorXd &y,
+           const vector<double> &lambdas);
 
   Eigen::VectorXd get_beta() const;
 
