@@ -11,6 +11,14 @@ on:
 jobs:
     test:
         runs-on: macos-latest
+        defaults:
+            run:
+                working-directory: .
         steps:
-            - name: test
-              run: ./test1.sh
+            - name: Checkout
+              uses: actions/checkout@v4
+            - name: Make-Executable
+              run: chmod +x ./test.sh
+            - name: Run-Test
+              run: ./test.sh
+              

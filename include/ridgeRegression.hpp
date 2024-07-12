@@ -60,12 +60,15 @@ class RidgeRegression {
   void fit(const Eigen::MatrixXd& X, const Eigen::VectorXd& y, const vector<double>& lambdas);
 
   Eigen::VectorXd get_beta() const;
+  vector<Eigen::VectorXd> get_betas() const;
 
  private:
   Eigen::MatrixXd X;
   Eigen::VectorXd y;
   double lambda;
   Eigen::VectorXd beta;
+  vector<double> lambdas;
+  vector<Eigen::VectorXd> betas;
 };
 
 }  // namespace Modelling
