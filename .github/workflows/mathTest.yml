@@ -1,0 +1,32 @@
+
+name: 'Math Test'
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    
+jobs:
+    test:
+        runs-on: macos-latest
+        defaults: 
+            run:
+                working-directory: .
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+            - name: Dependencies
+              run: |
+                brew install cmake
+                brew install eigen
+                brew install googletest
+            - name: build
+              run: |
+                mkdir build
+                cd build
+                cmake ..
+                cmake --build .
+            - name: Run-Test
+              run: ctest

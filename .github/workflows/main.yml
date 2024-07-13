@@ -18,7 +18,7 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v4
             - name: Make-Executable
-              run: chmod +x ./test.sh
+              run: chmod +x ./test1.sh
             - name: Run-Test
               run: ./test.sh
               

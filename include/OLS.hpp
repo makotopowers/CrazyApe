@@ -35,6 +35,8 @@ for beta* using forward and backward substitution.
 
 namespace Modelling {
 
+namespace Regression {
+
 class OLS {
   /*
   @brief OLS class
@@ -57,5 +59,7 @@ class OLS {
   Eigen::VectorXd y;
   Eigen::VectorXd beta;
 };
+
+}  // namespace Regression
 
 }  // namespace Modelling
