@@ -23,15 +23,20 @@ void RidgeRegression::fit(const Eigen::MatrixXd& X_p, const Eigen::VectorXd& y_p
   // @param y_p: n x 1 vector of target values
   // @param lambda_p: regularization parameter
 
-  this->X = X_p;
+  Eigen::MatrixXd ones = Eigen::MatrixXd::Ones(X_p.rows(), 1);
+  Eigen::MatrixXd X_intercept = Eigen::MatrixXd(X_p.rows(), X_p.cols() + 1);
+  X_intercept.block(0, 0, X_p.rows(), 1) = ones;
+  X_intercept.block(0, 1, X_p.rows(), X_p.cols()) = X_p;
+
+  this->X = X_intercept;
   this->y = y_p;
   this->lambdas = std::vector<double>(1, lambda_p);
-  this->betas = std::vector<Eigen::VectorXd>(this->lambdas.size());
+  this->betas = std::vector<Eigen::VectorXd>(lambdas.size());
 
   Eigen::MatrixXd XtX = X.transpose() * X;
   Eigen::MatrixXd I = Eigen::MatrixXd::Identity(XtX.rows(), XtX.cols());
 
-  this->betas[0] = ((XtX + this->lambdas[0] * I).ldlt().solve(X.transpose() * y));
+  betas[0] = ((XtX + lambdas[0] * I).ldlt().solve(X.transpose() * y));
 
   return;
 }
@@ -43,16 +48,21 @@ void RidgeRegression::fit(const Eigen::MatrixXd& X_p, const Eigen::VectorXd& y_p
   // @param y_p: n x 1 vector of target values
   // @param lambdas_p: vector of regularization parameters
 
-  this->X = X_p;
+  Eigen::MatrixXd ones = Eigen::MatrixXd::Ones(X_p.rows(), 1);
+  Eigen::MatrixXd X_intercept = Eigen::MatrixXd(X_p.rows(), X_p.cols() + 1);
+  X_intercept.block(0, 0, X_p.rows(), 1) = ones;
+  X_intercept.block(0, 1, X_p.rows(), X_p.cols()) = X_p;
+
+  this->X = X_intercept;
   this->y = y_p;
   this->lambdas = lambdas_p;
-  this->betas = std::vector<Eigen::VectorXd>(this->lambdas.size());
+  this->betas = std::vector<Eigen::VectorXd>(lambdas.size());
 
   Eigen::MatrixXd XtX = X.transpose() * X;
   Eigen::MatrixXd I = Eigen::MatrixXd::Identity(XtX.rows(), XtX.cols());
 
-  for (int i = 0; i < this->lambdas.size(); i++) {
-    this->betas[i] = ((XtX + this->lambdas[i] * I).ldlt().solve(X.transpose() * y));
+  for (int i = 0; i < lambdas.size(); i++) {
+    betas[i] = ((XtX + lambdas[i] * I).ldlt().solve(X.transpose() * y));
   }
 
   return;
@@ -63,7 +73,7 @@ std::vector<Eigen::VectorXd> RidgeRegression::get_betas() const {
   //
   // @return vector of beta coefficients
 
-  return this->betas;
+  return betas;
 }
 
 }  // namespace Regression

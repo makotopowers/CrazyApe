@@ -17,6 +17,11 @@ set(HEADERS
     ${PROJECT_SOURCE_DIR}/include/ridgeRegression.hpp
     ${PROJECT_SOURCE_DIR}/include/OLS.hpp
     ${PROJECT_SOURCE_DIR}/include/lasso.hpp
+    ${PROJECT_SOURCE_DIR}/include/makeData.hpp
+    ${PROJECT_SOURCE_DIR}/include/utilities.hpp
+    ${PROJECT_SOURCE_DIR}/include/configReader.hpp
+
+
 
     )
 
@@ -24,6 +29,9 @@ set(SOURCES
     ${PROJECT_SOURCE_DIR}/src/ridgeRegression.cpp
     ${PROJECT_SOURCE_DIR}/src/OLS.cpp
     ${PROJECT_SOURCE_DIR}/src/lasso.cpp
+    ${PROJECT_SOURCE_DIR}/src/makeData.cpp
+    ${PROJECT_SOURCE_DIR}/src/utilities.cpp
+    ${PROJECT_SOURCE_DIR}/src/configReader.cpp
     )
 
 add_executable(${PROJECT_NAME}

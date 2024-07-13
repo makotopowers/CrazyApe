@@ -1,15 +1,9 @@
 
 name: 'Math Test'
-
-on:
-  push:
-    branches:
-      - main
-
-  pull_request:
-    
+on: [push, pull_request]
 jobs:
     test:
+        name: Math Test
         runs-on: macos-latest
         defaults: 
             run:

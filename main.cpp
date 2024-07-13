@@ -1,24 +1,85 @@
 #include <iostream>
 
 #include "OLS.hpp"
+#include "configReader.hpp"
 #include "lasso.hpp"
+#include "makeData.hpp"
 #include "ridgeRegression.hpp"
+#include "utilities.hpp"
 
 int main() {
-  // Create a RidgeRegression object
-  Modelling::Regression::RidgeRegression rr;
-  rr.fit(Eigen::MatrixXd::Random(10, 5), Eigen::VectorXd::Random(10), 0.1);
-  std::cout << rr.get_betas().size() << std::endl;
-  std::cout << " here" << std::endl;
-  for (auto x : rr.get_betas()) {
-    std::cout << x.transpose() << std::endl;
+
+  std::string confDir = "../conf/";
+  std::string confFile = "global.conf";
+  Tools::ConfigReader configReader;
+  configReader.readConfigFile(confDir + confFile);
+
+  Tools::Utilities utilities;
+  utilities.setDebug(configReader.returnConfigValue<int>("DEBUG"));
+
+  // create data object
+
+  Data::Simulation::MakeData data;
+
+  // set the true function
+  data.set_true_function([](const Eigen::VectorXd& x) { return 2 * x(0) + 3 * x(1) + 4 * x(2) + 10; }, 3);
+
+  // generate a synthetic dataset
+  Data::Simulation::DataSet data_set = data.get_data_set(100, 2, 0.1);
+
+  // create an OLS object
+  Modelling::Regression::OLS ols;
+
+  // fit the OLS model
+  ols.fit(data_set.X, data_set.y);
+
+  // get the coefficients
+  Eigen::VectorXd beta = ols.get_beta();
+
+  std::cout << "OLS coefficients: " << beta.transpose() << std::endl;
+
+  // create a ridge regression object
+  Modelling::Regression::RidgeRegression ridge;
+
+  // fit the ridge regression model
+  ridge.fit(data_set.X, data_set.y, 0.1);
+
+  // get the coefficients
+  std::vector<Eigen::VectorXd> betas = ridge.get_betas();
+
+  for (int i = 0; i < betas.size(); i++) {
+    std::cout << "Ridge coefficients: " << betas[i].transpose() << std::endl;
   }
 
-  rr.fit(Eigen::MatrixXd::Random(10, 5), Eigen::VectorXd::Random(10), std::vector<double>{0.1, 0.2});
-  std::cout << rr.get_betas().size() << std::endl;
-  for (auto x : rr.get_betas()) {
-    std::cout << x.transpose() << std::endl;
+  //   // create a lasso regression object
+  Modelling::Regression::Lasso lasso;
+
+  // fit the lasso regression model
+  lasso.fit(data_set.X, data_set.y, 0.0);
+
+  // get the coefficients
+  betas = lasso.get_betas();
+
+  for (int i = 0; i < betas.size(); i++) {
+    std::cout << "Lasso coefficients: " << betas[i].transpose() << std::endl;
   }
+
+  //   // Create a lasso regression object
+  //   Modelling::Regression::Lasso lasso;
+
+  //   // Random data
+  //   Eigen::MatrixXd X = Eigen::MatrixXd::Random(100, 10);
+  //   Eigen::VectorXd y = Eigen::VectorXd::Random(100);
+
+  //   double lambda = 0.0;
+
+  //   lasso.fit(X, y, lambda);
+
+  //   std::vector<Eigen::VectorXd> betas = lasso.get_betas();
+
+  //   for (int i = 0; i < betas.size(); i++) {
+  //     std::cout << betas[i].transpose() << std::endl;
+  //   }
 
   return EXIT_SUCCESS;
 }
