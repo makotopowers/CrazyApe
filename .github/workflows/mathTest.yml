@@ -22,11 +22,13 @@ jobs:
                 brew install cmake
                 brew install eigen
                 brew install googletest
-            - name: build
+            - name: Build
               run: |
                 mkdir build
                 cd build
                 cmake ..
                 cmake --build .
             - name: Run-Test
-              run: ctest
+              run: |
+                cd build
+                ctest

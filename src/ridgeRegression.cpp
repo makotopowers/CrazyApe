@@ -63,7 +63,7 @@ std::vector<Eigen::VectorXd> RidgeRegression::get_betas() const {
   //
   // @return vector of beta coefficients
 
-  return betas;
+  return this->betas;
 }
 
 }  // namespace Regression
