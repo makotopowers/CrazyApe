@@ -11,6 +11,7 @@
 // INCLUDES
 #include <Eigen/Dense>
 #include <functional>
+#include <memory>
 #include <random>
 
 //============================================================================
@@ -37,12 +38,15 @@ class MakeData {
 
   void set_true_function(const std::function<double(const Eigen::VectorXd&)>& true_function_p, const int n_informative);
   DataSet get_data_set(const int n_samples, const int n_redundant, const double noise_level);
+  void CreateUnderlyingMultivariateNormal(const Eigen::VectorXd& mean, const Eigen::MatrixXd& cov, const int samples);
+  Eigen::MatrixXd get_multivariate_normal();
 
  private:
   std::default_random_engine generator;
   std::normal_distribution<double> normal_dist;
   std::function<double(const Eigen::VectorXd&)> true_function;
   int n_informative;
+  std::shared_ptr<Eigen::MatrixXd> multivariate_normal;
 };
 
 }  // namespace Simulation

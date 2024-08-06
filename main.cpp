@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include <fstream>
 #include "OLS.hpp"
 #include "PCA.hpp"
 #include "configReader.hpp"
@@ -28,6 +29,26 @@ int main() {
 
   // generate a synthetic dataset
   Data::Simulation::DataSet data_set = data.get_data_set(100, 0, 0.1);
+
+  // mean = 0,0
+  // cov = [[1, 0.5], [0.5, 1]]
+  Eigen::MatrixXd cov = Eigen::MatrixXd(2, 2);
+  cov << 1, 0.8, 0.8, 1;
+  Eigen::VectorXd mean = Eigen::VectorXd::Zero(2);
+  data.CreateUnderlyingMultivariateNormal(mean, cov, 1000);
+
+  Eigen::MatrixXd multi = data.get_multivariate_normal();
+
+  // std::cout << "Multivariate normal: " << multi.cols() << " " << multi.rows() << std::endl;
+
+  // dump the dataset in a file
+  std::ofstream file;
+  file.open("../data.csv");
+  file << "X1,X2\n";
+  for (int i = 0; i < multi.cols(); i++) {
+    file << multi(0, i) << "," << multi(1, i) << "\n";
+  }
+  file.close();
 
   // create an OLS object
   Modelling::Regression::OLS ols;
@@ -70,7 +91,7 @@ int main() {
   Modelling::DimensionReduction::PCA pca;
 
   // fit the PCA model
-  pca.fit(data_set.X);
+  pca.fit(multi.transpose());
 
   // get the explained variance ratio
   Eigen::MatrixXd principal_components = pca.get_principal_components();

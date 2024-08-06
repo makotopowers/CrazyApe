@@ -70,5 +70,34 @@ DataSet MakeData::get_data_set(const int n_samples, const int n_redundant, const
   return data_set;
 }
 
+void MakeData::CreateUnderlyingMultivariateNormal(const Eigen::VectorXd& mean, const Eigen::MatrixXd& cov, const int samples) {
+  // @brief Create the underlying multivariate normal distribution
+  //
+  // @param dim: dimension of the multivariate normal distribution
+
+  assert(cov.rows() == mean.size());
+  assert(cov.cols() == mean.size());
+
+  Eigen::MatrixXd A = Eigen::MatrixXd::Zero(mean.size(), samples);
+  for (int i = 0; i < mean.size(); i++) {
+    for (int j = 0; j < samples; j++) {
+      A(i, j) = normal_dist(generator);
+    }
+  }
+
+  Eigen::MatrixXd L = cov.llt().matrixL();
+  Eigen::MatrixXd B = L * A;
+
+  this->multivariate_normal = std::make_shared<Eigen::MatrixXd>(B);
+
+  return;
+}
+
+Eigen::MatrixXd MakeData::get_multivariate_normal() {
+  // @brief Get the underlying multivariate normal distribution
+
+  return *this->multivariate_normal;
+}
+
 }  // namespace Simulation
 }  // namespace Data
