@@ -20,6 +20,7 @@ int main() {
 
   // create data object
 
+  //running
   Data::Simulation::MakeData data;
 
   // set the true function
