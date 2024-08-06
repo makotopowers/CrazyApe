@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "OLS.hpp"
+#include "PCA.hpp"
 #include "configReader.hpp"
 #include "lasso.hpp"
 #include "makeData.hpp"
@@ -22,10 +23,10 @@ int main() {
   Data::Simulation::MakeData data;
 
   // set the true function
-  data.set_true_function([](const Eigen::VectorXd& x) { return 2 * x(0) + 3 * x(1) + 4 * x(2) + 10; }, 3);
+  data.set_true_function([](const Eigen::VectorXd& x) { return 2 * x(0) + 3 * x(1) + 10; }, 2);
 
   // generate a synthetic dataset
-  Data::Simulation::DataSet data_set = data.get_data_set(100, 2, 0.1);
+  Data::Simulation::DataSet data_set = data.get_data_set(100, 0, 0.1);
 
   // create an OLS object
   Modelling::Regression::OLS ols;
@@ -64,22 +65,16 @@ int main() {
     std::cout << "Lasso coefficients: " << betas[i].transpose() << std::endl;
   }
 
-  //   // Create a lasso regression object
-  //   Modelling::Regression::Lasso lasso;
+  // create a PCA object
+  Modelling::DimensionReduction::PCA pca;
 
-  //   // Random data
-  //   Eigen::MatrixXd X = Eigen::MatrixXd::Random(100, 10);
-  //   Eigen::VectorXd y = Eigen::VectorXd::Random(100);
+  // fit the PCA model
+  pca.fit(data_set.X);
 
-  //   double lambda = 0.0;
+  // get the explained variance ratio
+  Eigen::MatrixXd principal_components = pca.get_principal_components();
 
-  //   lasso.fit(X, y, lambda);
-
-  //   std::vector<Eigen::VectorXd> betas = lasso.get_betas();
-
-  //   for (int i = 0; i < betas.size(); i++) {
-  //     std::cout << betas[i].transpose() << std::endl;
-  //   }
+  std::cout << "Principal components: " << principal_components.transpose() << std::endl;
 
   return EXIT_SUCCESS;
 }

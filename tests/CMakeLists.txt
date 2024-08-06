@@ -1,34 +1,36 @@
-# include(FetchContent)
-# FetchContent_Declare(
-#     googletest
-#     GIT_REPOSITORY https://github.com/google/googletest.git
-#     GIT_TAG release-1.11.0 # Adjust to the desired version
-# )
+cmake_minimum_required(VERSION 3.27)
+include(FetchContent)
+FetchContent_Declare(
+    googletest
+    GIT_REPOSITORY https://github.com/google/googletest.git
+    GIT_TAG release-1.11.0 # Adjust to the desired version
+)
 
-# FetchContent_MakeAvailable(googletest)
+FetchContent_MakeAvailable(googletest)
 
-# add_executable(test1 testing.cpp )
-# target_include_directories(test1 PRIVATE ${CMAKE_SOURCE_DIR}/include)
+add_executable(test1 ${SOURCES} testing.cpp )
+target_include_directories(test1 PRIVATE ${CMAKE_SOURCE_DIR}/include)
 
-# target_link_libraries(test1 gtest gtest_main)
+target_link_libraries(test1 gtest gtest_main)
+target_link_libraries(test1 Eigen3::Eigen)
 
-# add_test(NAME test1 COMMAND test1)
+add_test(NAME test1 COMMAND test1)
 
 
 #----------------------------- fetching ^ 
 
 
-find_package(GTest REQUIRED)
-include(GoogleTest)
+# find_package(GTest REQUIRED)
+# include(GoogleTest)
 
 
 
-add_executable(tests ${SOURCES} testing.cpp)
-target_include_directories(tests PRIVATE ${CMAKE_SOURCE_DIR}/include)
-target_link_libraries(tests Eigen3::Eigen)
-target_link_libraries(tests GTest::GTest GTest::Main)
+# add_executable(tests ${SOURCES} testing.cpp)
+# target_include_directories(tests PRIVATE ${CMAKE_SOURCE_DIR}/include)
+# target_link_libraries(tests Eigen3::Eigen)
+# target_link_libraries(tests GTest::GTest GTest::Main)
 
-gtest_discover_tests(tests)
+# gtest_discover_tests(tests)
 
 
 #-------------------------- static ^ (faster)
