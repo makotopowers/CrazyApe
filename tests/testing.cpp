@@ -83,6 +83,18 @@ TEST(OLSTest, DimensionTest) {
   }
 }
 
+// TEST(lassoTest, DimensionTestSingleLambda) {
+//   Modelling::Regression::Lasso lasso;
+//   for (int i = 0; i < 10; i++) {
+//     lasso.fit(Eigen::MatrixXd::Random(10, 5), Eigen::VectorXd::Random(10), 0.1);
+//     std::vector<Eigen::VectorXd> beta = lasso.get_betas();
+//     ASSERT_EQ(beta.size(), 1);
+//     for (auto x : beta) {
+//       ASSERT_EQ(x.size(), 6);
+//     }
+//   }
+// }
+
 int main(int argc, char** argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
