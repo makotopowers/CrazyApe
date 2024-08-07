@@ -6,7 +6,6 @@
 //============================================================================
 // INCLUDES
 #include "PCA.hpp"
-#include <iostream>
 
 //============================================================================
 
@@ -31,7 +30,6 @@ void PCA::fit(const Eigen::MatrixXd& X_p) {
 
   // compute the eigenvectors and eigenvalues
   Eigen::SelfAdjointEigenSolver<Eigen::MatrixXd> eigensolver(covariance);
-  std::cout << "The eigenvalues of A are:\n" << eigensolver.eigenvalues() << std::endl;
   Eigen::MatrixXd eigenvectors = eigensolver.eigenvectors();
 
   this->X = X_p;
