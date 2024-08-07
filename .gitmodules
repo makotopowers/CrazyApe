@@ -1,0 +1,3 @@
+[submodule "ApePerformance"]
+	path = ApePerformance
+	url = git@github.com:makotopowers/ApePerformance.git
