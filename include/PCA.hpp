@@ -37,10 +37,12 @@ class PCA {
   void fit(const Eigen::MatrixXd& X);
 
   Eigen::MatrixXd get_principal_components() const;
+  Eigen::VectorXd get_principal_values() const;
 
  private:
   Eigen::MatrixXd X;
   Eigen::MatrixXd principal_components;
+  Eigen::VectorXd principal_values;
 };
 
 }  // namespace DimensionReduction
