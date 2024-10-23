@@ -41,11 +41,13 @@ class LogisticRegression {
   LogisticRegression();
   ~LogisticRegression();
 
-  Eigen::VectorXd fit(const Eigen::MatrixXd& X, const Eigen::VectorXd& y, const double lambda);
+  Eigen::VectorXd fit(const Eigen::MatrixXd& X, const Eigen::MatrixXd& y, const double lambda, int iteration_method);
 
   Eigen::VectorXd get_beta();
 
  private:
+  Eigen::VectorXd coordinate_descent();
+  Eigen::VectorXd fixed_hessian();
   Eigen::VectorXd beta;
 };
 

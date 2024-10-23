@@ -15,6 +15,7 @@
 //============================================================================
 // INCLUDES
 #include <Eigen/Dense>
+#include <vector>
 
 //============================================================================
 
@@ -32,6 +33,7 @@ class RSS {
   ~RSS();
 
   double compute(const Eigen::VectorXd& y, const Eigen::VectorXd& y_hat);
+  std::vector<double> compute(const Eigen::VectorXd& y, const Eigen::MatrixXd& y_hat);
 };
 
 }  // namespace Metrics

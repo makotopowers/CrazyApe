@@ -22,6 +22,8 @@ set(HEADERS
     ${PROJECT_SOURCE_DIR}/include/makeData.hpp
     ${PROJECT_SOURCE_DIR}/include/utilities.hpp
     ${PROJECT_SOURCE_DIR}/include/configReader.hpp
+    ${PROJECT_SOURCE_DIR}/include/RSS.hpp
+
 
 
 
@@ -35,6 +37,7 @@ set(SOURCES
     ${PROJECT_SOURCE_DIR}/src/makeData.cpp
     ${PROJECT_SOURCE_DIR}/src/utilities.cpp
     ${PROJECT_SOURCE_DIR}/src/configReader.cpp
+    ${PROJECT_SOURCE_DIR}/src/RSS.cpp
     )
 
 add_executable(${PROJECT_NAME}

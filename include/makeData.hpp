@@ -13,6 +13,7 @@
 #include <functional>
 #include <memory>
 #include <random>
+#include <vector>
 
 //============================================================================
 
@@ -43,6 +44,7 @@ class MakeData {
   Eigen::MatrixXd get_underlying_data() const;
 
   void set_underlying_data(const Eigen::MatrixXd& data);
+  std::vector<DataSet> train_test_split(const DataSet& data_set, double test_size = 0.2);
 
  private:
   std::default_random_engine generator;
@@ -50,6 +52,7 @@ class MakeData {
   std::uniform_real_distribution<double> uniform_dist;
   std::function<double(const Eigen::VectorXd&)> true_function;
   int n_informative;
+  bool function_set;
   bool underlying;
   Eigen::MatrixXd underlying_data;
 };

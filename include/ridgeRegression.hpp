@@ -65,6 +65,8 @@ class RidgeRegression {
 
   std::vector<Eigen::VectorXd> get_betas() const;
 
+  // Eigen::MatrixXd predict(const Eigen::MatrixXd& X_p) const;
+
  private:
   Eigen::MatrixXd X;
   Eigen::VectorXd y;
